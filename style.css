@@ -143,6 +143,8 @@ nav a:hover {
   border-image-slice: 1;
   border-image-source: linear-gradient(to bottom, #003380, #ffffff);
   margin: 50px;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -227,4 +229,10 @@ a.contentHeader {
 
 .hide {
   display: none !important;
+}
+#map {
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  flex: 1;
 }

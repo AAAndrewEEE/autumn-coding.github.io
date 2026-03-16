@@ -7,7 +7,14 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet"></head>
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <style>
+    #map {
+      height: 100%;
+    }
+  </style>
+</head>
 <body>
   <div id="header">
     <h1 id="DevScript">Forecasting</h1>
@@ -24,13 +31,65 @@
 
   <div class="contentBoxLarge">
     <div class="contentHolder">
-
+      <div id="map"></div>
     </div>
   </div>
 
   <div id="footer"><p>Copyright ©2026, Kate Yoshida, </p></div>
 
 </div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  // Initialize the map
+  const map = L.map('map').setView([0, 0], 3);
+
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  const defaultCountryStyle = {
+    color: '#4d4d4d',
+    weight: 1,
+    fillColor: '#d9d9d9',
+    fillOpacity: 0.6
+  };
+
+  const selectedCountryStyle = {
+    color: '#5a1f99',
+    weight: 2,
+    fillColor: '#a855f7',
+    fillOpacity: 0.75
+  };
+
+  let selectedCountryLayer = null;
+
+  function onEachCountry(feature, layer) {
+    layer.on('click', () => {
+      if (selectedCountryLayer) {
+        selectedCountryLayer.setStyle(defaultCountryStyle);
+      }
+
+      layer.setStyle(selectedCountryStyle);
+      selectedCountryLayer = layer;
+    });
+  }
+
+  fetch('https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json')
+    .then((response) => response.json())
+    .then((data) => {
+      L.geoJSON(data, {
+        style: defaultCountryStyle,
+        onEachFeature: onEachCountry
+      }).addTo(map);
+    })
+    .catch((error) => {
+      console.error('Failed to load country data:', error);
+    });
+
+</script>
 
 </body>
 </html>
