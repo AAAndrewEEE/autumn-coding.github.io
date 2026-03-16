@@ -147,6 +147,49 @@ nav a:hover {
   flex-direction: column;
 }
 
+.forcastHorizon {
+  width: 80%;
+  background: white;
+  border: 2px solid #003380;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 0 0 30px;
+  color: #003380;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.forcastInfo {
+  width: 80%;
+  margin: 0 0 30px;
+  color: #003380;
+  display: flex;
+  justify-content: center;
+}
+
+.forcastInfoBox {
+  width: 100%;
+  background: white;
+  border: 2px solid #003380;
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.forcastInfoBox h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.forcastInfoBox p {
+  margin: 0;
+  font-size: 18px;
+}
+
+.horizonSlider {
+  width: 100%;
+}
+
 
 #homelinks .contentHeader {
   justify-content: center;

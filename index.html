@@ -35,6 +35,25 @@
     </div>
   </div>
 
+  <div class="forcastHorizon">
+    <label for="horizonSlider">Forecast Horizon (days)</label>
+    <input
+      id="horizonSlider"
+      class="horizonSlider"
+      type="range"
+      min="1"
+      max="30"
+      value="7"
+      step="1"
+    />
+  </div>
+  <div class="forcastInfo">
+    <div class="forcastInfoBox">
+      <h2>Selected Country</h2>
+      <p id="selectedCountryName">None selected</p>
+    </div>
+  </div>
+
   <div id="footer"><p>Copyright ©2026, Kate Yoshida, </p></div>
 
 </div>
@@ -64,6 +83,7 @@
     fillOpacity: 0.75
   };
 
+  const selectedCountryNameEl = document.getElementById('selectedCountryName');
   let selectedCountryLayer = null;
 
   function onEachCountry(feature, layer) {
@@ -73,6 +93,10 @@
       }
 
       layer.setStyle(selectedCountryStyle);
+      const countryName = feature && feature.properties && feature.properties.name
+        ? feature.properties.name
+        : 'Unknown';
+      selectedCountryNameEl.textContent = countryName;
       selectedCountryLayer = layer;
     });
   }
